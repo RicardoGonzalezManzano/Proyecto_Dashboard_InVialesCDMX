@@ -8,7 +8,7 @@ Desarrollado por:
 
 Para este proyecto hicimos un análisis de **503,339 incidentes viales** registrados por el C5 de la Ciudad de México entre enero de 2022 y febrero de 2024. El proyecto trata tanto la parte descriptiva como predictiva: primero entiende qué pasó y, con ese conocimiento, predice qué tipo de accidente es más probable según la zona y la hora. Todo esto se explora en un dashboard interactivo hecho con Streamlit.
 
-> \\\*\\\*Demo en vivo:\\\*\\\* \\\_pega aquí la URL de Streamlit Cloud cuando despliegues\\\_
+> \\\\\\\*\\\\\\\*Demo en vivo:\\\\\\\*\\\\\\\* \\\\\\\_pega aquí la URL de Streamlit Cloud cuando despliegues\\\\\\\_
 
 \---
 
@@ -31,20 +31,20 @@ Con el fin de hacer el despliegue de información más dinámico, el usuario eli
 
 ```
 Proyecto/
-├── \\\_\\\_init\\\_\\\_.py       # Declara el proyecto como paquete Python (expone clases principales)
+├── \\\\\\\_\\\\\\\_init\\\\\\\_\\\\\\\_.py       # Declara el proyecto como paquete Python (expone clases principales)
 ├── app.py            # Dashboard interactivo (Streamlit + Plotly) → streamlit run app.py
 ├── main.py           # Pipeline offline (genera CSV/Parquet y PNGs del reporte)
-├── limpieza.py       # Fase 1 — limpieza + exporta viales\\\_limpio.csv y .parquet
+├── limpieza.py       # Fase 1 — limpieza + exporta viales\\\\\\\_limpio.csv y .parquet
 ├── modelos.py        # Fase 2 — clases POO (incluye TipoAccidente / CatalogoTipos)
 ├── descriptivo.py    # Fase 3 — exporta las 6 gráficas estáticas (PNG)
 ├── predictivo.py     # Fase 4 — PredictorTipoAccidente (Naive Bayes + baseline)
 │
 ├── datos/
 │   ├── diccionario-incidentes-viales-c5.xlsx  # Diccionario de datos del CSV original
-│   ├── inViales\\\_2022\\\_2024.csv                 # CSV original (no se sube: \\\~128 MB)
-│   ├── revision\\\_datos.ipynb                   # Notebook de exploración inicial del dataset
-│   ├── viales\\\_limpio.csv                      # Limpio completo (no se sube)
-│   └── viales\\\_limpio.parquet                  # Versión ligera (\\\~9 MB) que usa el dashboard
+│   ├── inViales\\\\\\\_2022\\\\\\\_2024.csv                 # CSV original (no se sube: \\\\\\\~128 MB)
+│   ├── revision\\\\\\\_datos.ipynb                   # Notebook de exploración inicial del dataset
+│   ├── viales\\\\\\\_limpio.csv                      # Limpio completo (no se sube)
+│   └── viales\\\\\\\_limpio.parquet                  # Versión ligera (\\\\\\\~9 MB) que usa el dashboard
 │
 │
 ├── requirements.txt
@@ -55,7 +55,7 @@ Proyecto/
 
 ## Las clases (POO)
 
-El diagrama completo está en [`docs/UML\\\_clases.pdf`](docs/UML_clases.pdf). Tres capas:
+
 
 |Capa|Clases|Rol|
 |-|-|-|
@@ -87,14 +87,14 @@ Eliges **alcaldía + hora** y el sistema estima la probabilidad de cada uno de l
 * **Baseline** — frecuencias condicionadas `P(tipo | alcaldía, hora)` leídas directo de los datos (el conocimiento descriptivo "crudo").
 * **Modelo** — `Naive Bayes` categórico: la versión suavizada y generalizadora de esas frecuencias. No se usa Random Forest; Naive Bayes es la contraparte probabilística directa de las frecuencias, más interpretable para este problema.
 
-> \\\*\\\*Nota honesta (hallazgo del proyecto):\\\*\\\* como "Choque sin lesionados" es el \\\~46 % de todos los casos, el modelo casi siempre lo elige como el más probable (accuracy ≈ 0.46, F1-macro bajo por el fuerte desbalance de clases). El valor del predictor no está en el \\\*argmax\\\* sino en la \\\*\\\*distribución de probabilidades\\\*\\\*: muestra, por ejemplo, que en Cuauhtémoc a las 19 h la probabilidad de \\\*Atropellado\\\* sube a \\\~16 % frente al \\\~10 % global. Eso es exactamente el conocimiento descriptivo, ahora cuantificado.
+> \\\\\\\*\\\\\\\*Nota honesta (hallazgo del proyecto):\\\\\\\*\\\\\\\* como "Choque sin lesionados" es el \\\\\\\~46 % de todos los casos, el modelo casi siempre lo elige como el más probable (accuracy ≈ 0.46, F1-macro bajo por el fuerte desbalance de clases). El valor del predictor no está en el \\\\\\\*argmax\\\\\\\* sino en la \\\\\\\*\\\\\\\*distribución de probabilidades\\\\\\\*\\\\\\\*: muestra, por ejemplo, que en Cuauhtémoc a las 19 h la probabilidad de \\\\\\\*Atropellado\\\\\\\* sube a \\\\\\\~16 % frente al \\\\\\\~10 % global. Eso es exactamente el conocimiento descriptivo, ahora cuantificado.
 
 \---
 
 ## Cómo correrlo
 
 **Opción 1 — Demo en línea (sin instalación)**  
-Accede directamente desde el navegador: *pega aquí la URL de Streamlit Cloud cuando despliegues*
+Accede directamente desde el navegador: *https://proyectodashboardinvialescdmx-kggtuejyu2h35zlzu4k3vk.streamlit.app/*
 
 **Opción 2 — Correrlo en local**
 
@@ -103,21 +103,21 @@ Requisito: Python 3.10+.
 ```bash
 # 1. Entorno virtual
 python -m venv venv
-venv\\\\Scripts\\\\activate          # Windows
+venv\\\\\\\\Scripts\\\\\\\\activate          # Windows
 source venv/bin/activate       # Mac / Linux
 
 # 2. Dependencias
 pip install -r requirements.txt
 
-# 3a. Abrir el tablero interactivo (necesita datos/viales\\\_limpio.parquet)
+# 3a. Abrir el tablero interactivo (necesita datos/viales\\\\\\\_limpio.parquet)
 streamlit run app.py
 
 # 3b. (Opcional) Regenerar datos y gráficas del reporte
 python main.py                  # limpieza → descriptivo → predictivo
-python main.py --paso limpieza  # genera viales\\\_limpio.csv y .parquet
+python main.py --paso limpieza  # genera viales\\\\\\\_limpio.csv y .parquet
 ```
 
-> El dashboard solo necesita `datos/viales\\\_limpio.parquet` (incluido en el repo). El CSV completo y el pipeline `main.py` solo hacen falta si quieres regenerar todo desde el original.
+> El dashboard solo necesita `datos/viales\\\\\\\_limpio.parquet` (incluido en el repo). El CSV completo y el pipeline `main.py` solo hacen falta si quieres regenerar todo desde el original.
 
 \---
 
